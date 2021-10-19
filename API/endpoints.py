@@ -2,14 +2,16 @@
 This is the file containing all of the endpoints for our flask app.
 The endpoint called `endpoints` will return all available endpoints.
 """
-
+from http import HTTPStatus
 from flask import Flask
 from flask_restx import Resource, Api
-import db.db as db
+#import db.db as db
 
 app = Flask(__name__)
 api = Api(app)
 
+HELLO = 'Hola'
+WORLD = 'mundo'
 
 @api.route('/hello')
 class HelloWorld(Resource):
@@ -39,13 +41,14 @@ class Endpoints(Resource):
         return {"Available endpoints": endpoints}
 
 
-@api.route('/pets')
-class Pets(Resource):
+@api.route('create_user/<username>')
+class CreateUser(Resource):
     """
     This class supports fetching a list of all pets.
     """
-    def get(self):
+    @api.response(HTTPStatus.OK, 'Success')
+    def post(self, username):
         """
         This method returns all pets.
         """
-        return db.fetch_pets()
+        return username
