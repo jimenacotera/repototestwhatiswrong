@@ -25,10 +25,10 @@ class HelloWorld(Resource):
         A trivial endpoint to see if the server is running.
         It just answers with "hello world."
         """
-        return {HELLO : WORLD} 
+        return {HELLO: WORLD}
 
 
-@api.route('/list_rooms') 
+@api.route('/list_rooms')
 class ListRoom(Resource):
     """
     This endpoints returns a list of rooms
@@ -37,7 +37,8 @@ class ListRoom(Resource):
         """
         returns a list of chat rooms
         """
-        return {"Software Engineering": {"num_users": 17} , "AI": {"num_users": 27}, }
+        return {"Software Engineering": {"num_users": 17},
+                "AI": {"num_users": 27}, }
 
 
 @api.route('/endpoints')
