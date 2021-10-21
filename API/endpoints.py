@@ -25,12 +25,19 @@ class HelloWorld(Resource):
         A trivial endpoint to see if the server is running.
         It just answers with "hello world."
         """
-        return {"software ENgineering": {"num_users": 17} , "AI" : {"num_users": 27}, }
+        return {HELLO : WORLD} 
 
 
 @api.route('/list_rooms') 
 class ListRoom(Resource):
-    """                                                                                                                                                                                          The purpose of the HelloWorld class is to have a simple test to see if the                                                                                                                   app is working at all.                                                                                                                                                                       """                                                                                                                                                                                          def get(self):                                                                                                                                                                                   """                                                                                                                                                                                          A trivial endpoint to see if the server is running.                                                                                                                                          It just answers with "hello world."                                                                                                                                                          """                                                                                                                                                                                          return {'hello': 'world'}    
+    """
+    This endpoints returns a list of rooms
+    """
+    def get(self):
+        """
+        returns a list of chat rooms
+        """
+        return {"Software Engineering": {"num_users": 17} , "AI": {"num_users": 27}, }
 
 
 @api.route('/endpoints')
