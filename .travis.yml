@@ -10,6 +10,9 @@ env:
 
 script:
             - make tests
+after_success:
+        - test $TRAVIS_BRANCH = "staging" && ./deploy.sh
+        - test $TRAVIS_BRANCH = "staging" && python utils/gen_pr_req.py
 
 deploy:
             - provider: heroku

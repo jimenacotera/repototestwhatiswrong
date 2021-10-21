@@ -12,4 +12,7 @@ class EndpointTestCase(TestCase):
         pass
 
     def test_hello(self):
-       self.assertTrue(False) 
+        hello = ep.HelloWorld(Resource)
+        get = hello.get()
+        self.assertIsInstance(ret, dict)
+        self.assertIn(ep.HELLO, ret)
