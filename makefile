@@ -1,27 +1,18 @@
-LINTER = flake8
-API_DIR = API
-DB_DIR = db
-REQ_DIR = .
+include common.mk
 
-FORCE:
-
-prod: tests github
+prod: all_tests github
 
 github: FORCE
-	- git commit -a
-	git push origin master
-
-tests: lint unit
-
-unit: FORCE
-	cd $(API_DIR); nosetests --with-coverage --cover-package=$(API_DIR)
-
-lint: FORCE
-	$(LINTER) $(API_DIR)/*.py
-	$(LINTER) $(DB_DIR)/*.py
+		- git commit -a
+		git push origin master
 
 dev_env: FORCE
-	pip install -r $(REQ_DIR)/requirements-dev.txt
+		pip install -r $(REQ_DIR)/requirements-dev.txt
 
-docs: FORCE
-	cd $(API_DIR); make docs
+all_tests: FORCE
+		cd $(API_DIR); make tests
+			cd $(DB_DIR); make tests
+
+all_docs: FORCE
+		cd $(API_DIR); make docs
+		cd $(DB_DIR); make docs
