@@ -47,6 +47,7 @@ class ListRoom(Resource):
         else:
             return rooms
 
+        
 @api.route('/create_room/<roomname>')
 class CreateRoom(Resource):
     """
@@ -65,6 +66,7 @@ class CreateRoom(Resource):
         elif ret == db.DUPLICATE:
             raise (wz.NotAcceptable("Chat room name already exists."))
 
+            
 @api.route('/endpoints')
 class Endpoints(Resource):
     """
@@ -90,7 +92,7 @@ class ListUsers(Resource)
         """
         Returns a list of all users.
         """
-        users = db.get_users)
+        users = db.get_users()
         if users is None:
             raise (wz.NotFound("User db not found."))
         else:
