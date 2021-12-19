@@ -65,7 +65,31 @@ class CreateRoom(Resource):
             raise (wz.NotFound("Chat room db not found."))
         elif ret == db.DUPLICATE:
             raise (wz.NotAcceptable("Chat room name already exists."))
+        else:
+            return f"{roomname} added."
 
+        
+@api.route('/rooms/delete/<roomname>')
+class DeleteRoom(Resource):
+    """
+    This class enables deleting a chat room.
+    While 'Forbidden` is a possible return value, we have not yet implemented
+    a user privileges section, so it isn't used yet.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.FORBIDDEN,
+                  'Only the owner of a room can delete it.')
+    def post(self, roomname):
+        """
+        This method deletes a room from the room db.
+        """
+        ret = db.del_room(roomname)
+        if ret == db.NOT_FOUND:
+            raise (wz.NotFound(f"Chat room {roomname} not found."))
+        else:
+            return f"{roomname} deleted."
+        
             
 @api.route('/endpoints')
 class Endpoints(Resource):
@@ -120,3 +144,24 @@ class CreateUser(Resource):
         elif ret == db.DUPLICATE:
             raise (wz.NotAcceptable("User name already exists."))
         return f"{username} added."
+
+    
+@api.route('/users/delete/<username>')
+class DeleteUser(Resource):
+    """
+    This class enables deleting a chat user.
+    While 'Forbidden` is a possible return value, we have not yet implemented
+    a user privileges section, so it isn't used yet.
+    """
+    @api.response(HTTPStatus.OK, 'Success')
+    @api.response(HTTPStatus.NOT_FOUND, 'Not Found')
+    @api.response(HTTPStatus.FORBIDDEN, 'A user can only delete themselves.')
+    def post(self, username):
+        """
+        This method deletes a user from the user db.
+        """
+        ret = db.del_user(username)
+        if ret == db.NOT_FOUND:
+            raise (wz.NotFound(f"Chat participant {username} not found."))
+        else:
+            return f"{username} deleted."
